@@ -71,6 +71,7 @@ USER user
 RUN  apt-get autoclean && apt-get clean
 RUN chmod +x /openMVS/MvgMvsPipeline.py 
 RUN cp -r /openMVS_build/bin/* /bin; cp /openMVS/MvgMvsPipeline.py /bin/MvgMvsPipeline.py ; rm -rf /openMVS; rm -rf /openMVS_build
+RUN ln -s /bin/MvgMvsPipeline.py /usr/local/bin/mvgmvs
 
 # Add binaries to path
 ENV PATH /usr/local/bin/OpenMVS:$PATH
