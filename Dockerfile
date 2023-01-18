@@ -45,10 +45,7 @@ RUN apt-get autoclean && apt-get clean
 RUN git clone --recursive https://github.com/openMVG/openMVG.git ; \
 	mkdir openMVG_build && cd openMVG_build; \
 	cmake -DCMAKE_BUILD_TYPE=RELEASE \
-	-DOpenMVG_BUILD_TESTS=OFF \
-	-DOpenMVG_BUILD_EXAMPLES=OFF \
-	-DOpenMVG_BUILD_DOC=OFF \
-	-DCMAKE_INSTALL_PREFIX=/opt/openmvg \
+	-DCMAKE_INSTALL_PREFIX=/openMVG_build/install \
 	-DTARGET_ARCHITECTURE=generic \
 	../openMVG/src; \
 	make -j4 &&\
