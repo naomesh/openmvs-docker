@@ -12,12 +12,17 @@ RUN apt-get -yq install build-essential git cmake libpng-dev libjpeg-dev libtiff
 RUN git clone --recursive https://github.com/openMVG/openMVG.git ; \
 	mkdir openMVG_build && cd openMVG_build; \
 	cmake -DCMAKE_BUILD_TYPE=RELEASE \
-	-DCMAKE_INSTALL_PREFIX=/openMVG_build/install \
+	-DCMAKE_INSTALL_PREFIX=/opt/openmvg \
+	-DOpenMVG_BUILD_TESTS=OFF \
+	-DOpenMVG_BUILD_EXAMPLES=OFF \
+	-DOpenMVG_BUILD_DOC=OFF \
 	-DTARGET_ARCHITECTURE=generic \
 	../openMVG/src; \
 	make -j4 &&\
 	make install; \
 	cd ..
+
+RUN rm -rf /openMVG; rm -rf /openMVG_build
 
 # Eigen 
 RUN git clone https://gitlab.com/libeigen/eigen --branch 3.4
@@ -53,7 +58,6 @@ RUN apt-get -y install libatlas-base-dev libsuitesparse-dev ; \
 RUN apt-get autoclean && apt-get clean
 
 # cp /openMVG_build/bin/* /bin
-# rm -rf /openMVG; rm -rf /openMVG_build
 
 # Build from stable openMVS release or the latest commit from the develop branch
 RUN if [[ -n "$MASTER" ]] ; then git clone https://github.com/cdcseacave/openMVS.git --branch master ; else git clone https://github.com/cdcseacave/openMVS.git --branch develop ; fi
@@ -69,6 +73,7 @@ RUN cd openMVS_build &&\
 
 RUN chmod +x /openMVS/MvgMvsPipeline.py 
 RUN cp -r /openMVS_build/bin/* /bin; cp /openMVS/MvgMvsPipeline.py /bin/MvgMvsPipeline.py ; rm -rf /openMVS; rm -rf /openMVS_build
+RUN cp -r /opt/openmvg/* /bin;
 RUN ln -s /bin/MvgMvsPipeline.py /usr/local/bin/mvgmvs
 
 # Set permissions such that the output files can be accessed by the current user (optional)
