@@ -13,7 +13,7 @@ RUN git clone https://gitlab.com/libeigen/eigen --branch 3.4
 RUN mkdir eigen_build
 RUN cd eigen_build &&\
 	cmake . ../eigen &&\
-	make && make install &&\
+	make -j4 && make install &&\
 	cd ..
 RUN rm -rf eigen;
 
@@ -34,7 +34,7 @@ RUN apt-get -y install libatlas-base-dev libsuitesparse-dev ; \
 	git clone https://ceres-solver.googlesource.com/ceres-solver ceres-solver ; \
 	mkdir ceres_build && cd ceres_build ; \
 	cmake . ../ceres-solver/ -DMINIGLOG=ON -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF ; \
-	make -j2 && make install ; \
+	make -j4 && make install ; \
 	cd ..; \
 	rm -rf ceres-solver; rm -rf ceres_build
 
@@ -48,9 +48,11 @@ RUN git clone --recursive https://github.com/openMVG/openMVG.git ; \
 	-DOpenMVG_BUILD_TESTS=OFF \
 	-DOpenMVG_BUILD_EXAMPLES=OFF \
 	-DOpenMVG_BUILD_DOC=OFF \
+	-DCMAKE_INSTALL_PREFIX=/opt/openmvg \
 	-DTARGET_ARCHITECTURE=generic \
 	../openMVG/src; \
-	cmake --build . --target install; \
+	make -j4 &&\
+	make install; \
 	cd ..
 # cp /openMVG_build/bin/* /bin
 # rm -rf /openMVG; rm -rf /openMVG_build
