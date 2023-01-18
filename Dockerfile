@@ -15,6 +15,7 @@ RUN cd eigen_build &&\
 	cmake . ../eigen &&\
 	make && make install &&\
 	cd ..
+RUN rm -rf eigen;
 
 # Boost
 RUN apt-get -y install libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-serialization-dev
@@ -50,8 +51,8 @@ RUN git clone --recursive https://github.com/openMVG/openMVG.git ; \
 	-DTARGET_ARCHITECTURE=generic \
 	../openMVG/src; \
 	cmake --build . --target install; \
-	cd ..; \
-	cp /openMVG_build/bin/* /bin
+	cd ..
+# cp /openMVG_build/bin/* /bin
 # rm -rf /openMVG; rm -rf /openMVG_build
 
 # Build from stable openMVS release or the latest commit from the develop branch
