@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 
 ARG MASTER
-ARG USER_ID
-ARG GROUP_ID
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 # Prepare and empty machine for building:
 RUN apt-get update -yq
