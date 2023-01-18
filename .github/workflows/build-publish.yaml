@@ -35,3 +35,6 @@ jobs:
           tags: |
             ghcr.io/naomesh/openmvsmvg:latest
             ghcr.io/naomesh/openmvsmvg:1.0.0
+
+#      jeanreno/app:latest
+#      jeanreno/app:1.0.0

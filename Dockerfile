@@ -51,6 +51,7 @@ RUN git clone --recursive https://github.com/openMVG/openMVG.git ; \
 	../openMVG/src; \
 	cmake --build . --target install; \
 	cd ..; \
+	cp /openMVG_build/bin/* /bin; \
 	rm -rf /openMVG; rm -rf /openMVG_build
 
 # Build from stable openMVS release or the latest commit from the develop branch
