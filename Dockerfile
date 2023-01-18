@@ -8,6 +8,17 @@ ARG GROUP_ID=1000
 RUN apt-get update -yq
 RUN apt-get -yq install build-essential git cmake libpng-dev libjpeg-dev libtiff-dev libglu1-mesa-dev libxxf86vm1 libxxf86vm-dev libxi-dev libxrandr-dev libomp-dev
 
+# Build latest openMVG
+RUN git clone --recursive https://github.com/openMVG/openMVG.git ; \
+	mkdir openMVG_build && cd openMVG_build; \
+	cmake -DCMAKE_BUILD_TYPE=RELEASE \
+	-DCMAKE_INSTALL_PREFIX=/openMVG_build/install \
+	-DTARGET_ARCHITECTURE=generic \
+	../openMVG/src; \
+	make -j4 &&\
+	make install; \
+	cd ..
+
 # Eigen 
 RUN git clone https://gitlab.com/libeigen/eigen --branch 3.4
 RUN mkdir eigen_build
@@ -41,16 +52,6 @@ RUN apt-get -y install libatlas-base-dev libsuitesparse-dev ; \
 # Clean up
 RUN apt-get autoclean && apt-get clean
 
-# Build latest openMVG
-RUN git clone --recursive https://github.com/openMVG/openMVG.git ; \
-	mkdir openMVG_build && cd openMVG_build; \
-	cmake -DCMAKE_BUILD_TYPE=RELEASE \
-	-DCMAKE_INSTALL_PREFIX=/openMVG_build/install \
-	-DTARGET_ARCHITECTURE=generic \
-	../openMVG/src; \
-	make -j4 &&\
-	make install; \
-	cd ..
 # cp /openMVG_build/bin/* /bin
 # rm -rf /openMVG; rm -rf /openMVG_build
 
