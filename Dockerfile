@@ -51,8 +51,8 @@ RUN git clone --recursive https://github.com/openMVG/openMVG.git ; \
 	../openMVG/src; \
 	cmake --build . --target install; \
 	cd ..; \
-	cp /openMVG_build/bin/* /bin; \
-	rm -rf /openMVG; rm -rf /openMVG_build
+	cp /openMVG_build/bin/* /bin
+# rm -rf /openMVG; rm -rf /openMVG_build
 
 # Build from stable openMVS release or the latest commit from the develop branch
 RUN if [[ -n "$MASTER" ]] ; then git clone https://github.com/cdcseacave/openMVS.git --branch master ; else git clone https://github.com/cdcseacave/openMVS.git --branch develop ; fi
