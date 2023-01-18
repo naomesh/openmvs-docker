@@ -37,6 +37,9 @@ RUN apt-get -y install libatlas-base-dev libsuitesparse-dev ; \
 	cd ..; \
 	rm -rf ceres-solver; rm -rf ceres_build
 
+# Clean up
+RUN apt-get autoclean && apt-get clean
+
 # Build latest openMVG
 RUN git clone --recursive https://github.com/openMVG/openMVG.git ; \
 	mkdir openMVG_build && cd openMVG_build; \
@@ -67,8 +70,7 @@ RUN addgroup --gid $GROUP_ID user &&\
 	adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 USER user
 
-# Clean up
-RUN  apt-get autoclean && apt-get clean
+
 RUN chmod +x /openMVS/MvgMvsPipeline.py 
 RUN cp -r /openMVS_build/bin/* /bin; cp /openMVS/MvgMvsPipeline.py /bin/MvgMvsPipeline.py ; rm -rf /openMVS; rm -rf /openMVS_build
 RUN ln -s /bin/MvgMvsPipeline.py /usr/local/bin/mvgmvs
