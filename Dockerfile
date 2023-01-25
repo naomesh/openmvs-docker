@@ -73,7 +73,7 @@ RUN cd openMVS_build &&\
 
 RUN chmod +x /openMVS/MvgMvsPipeline.py 
 RUN cp -r /openMVS_build/bin/* /bin; cp /openMVS/MvgMvsPipeline.py /bin/MvgMvsPipeline.py ; rm -rf /openMVS; rm -rf /openMVS_build
-RUN cp -r /opt/openmvg/bin/* /bin;
+# RUN cp -r /opt/openmvg/bin/* /bin;
 RUN ln -s /bin/MvgMvsPipeline.py /usr/local/bin/mvgmvs
 
 # Set permissions such that the output files can be accessed by the current user (optional)
@@ -82,4 +82,4 @@ RUN addgroup --gid $GROUP_ID user &&\
 USER user
 
 # Add binaries to path
-ENV PATH /usr/local/bin/OpenMVS:$PATH
+ENV PATH /usr/local/bin/OpenMVS:/opt/openmvg/bin/:$PATH
