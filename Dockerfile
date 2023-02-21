@@ -81,7 +81,7 @@ RUN addgroup --gid $GROUP_ID user &&\
 	adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 USER user
 
-RUN mkdir /home/user/workdir && /home/user/pictures
+RUN mkdir /home/user/workdir && mkdir /home/user/pictures
 
 # Add binaries to path and sensor_width_camera_database.txt
 ENV PATH /usr/local/bin/OpenMVS:/opt/openmvg/bin/:/opt/openmvg/share/openMVG/:$PATH
