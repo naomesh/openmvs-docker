@@ -84,4 +84,4 @@ USER user
 RUN mkdir /home/user/workdir && mkdir /home/user/pictures
 
 # Add binaries to path and sensor_width_camera_database.txt
-ENV PATH /usr/local/bin/OpenMVS:/opt/openmvg/bin/:/opt/openmvg/share/openMVG/:$PATH
+ENV PATH /usr/local/bin/OpenMVS:/opt/openmvg/bin/:/opt/openmvg/share/openMVG/:/opt/openmvg/lib/openMVG/:$PATH
